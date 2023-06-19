@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Speech to Text</title>
+    <style>
+        body {
+            background-color: #e1f5fe;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            margin-top: 0;
+            font-weight: bold;
+            text-align: center;
+            color: #333;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px #bdbdbd;
+        }
+
+        textarea {
+            border-radius: 10px;
+            font-size: 1.2rem;
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        #textbox {
+            border-radius: 10px;
+            width: 100%;
+        }
+
+        button {
+            margin-top: 10px;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            padding: 10px 20px;
+            text-transform: uppercase;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        #start-btn {
+            background-color: #ff5252;
+            color: #fff;
+        }
+
+        #stop-btn {
+            background-color: #ffab40;
+            color: #fff;
+        }
+
+        #instructions {
+            margin-top: 20px;
+            text-align: center;
+            font-style: italic;
+            color: #888;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Speech to Text</h1>
+        <textarea id="textbox" rows="6" class="form-control"></textarea>
+        <div class="form-group">
+            <button id="start-btn" class="btn btn-danger btn-block">Start</button>
+            <button id="stop-btn" class="btn btn-warning btn-block">Stop</button>
+            <p id="instructions">Press the Start button to begin transcription.</p>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        var speechRecognition = window.webkitSpeechRecognition;
+        var recognition = new speechRecognition();
+        var textbox = $("#textbox");
+        var instructions = $("#instructions");
+        var content = "";
+        recognition.continuous = true;
+        recognition.onstart = function () {
+            instructions.text("Voice recognition is on.");
+        };
+        recognition.onspeechend = function () {
+            instructions.text("No activity.");
+        };
+        recognition.onerror = function () {
+            instructions.text("Try again.");
+        };
+        recognition.onresult = function (event) {
+            var current = event.resultIndex;
+            var transcript = event.results[current][0].transcript;
+            content += transcript;
+            textbox.val(content);
+        };
+        $("#start-btn").click(function (event) {
+            recognition.start();
+        });
+        $("#stop-btn").click(function (event) {
+            recognition.stop();
+            instructions.text("Voice recognition stopped.");
+            textbox.val(content);
+        });
+        textbox.on("input", function () {
+            content = $(this).val();
+        });
+    </script>
+</body>
+
+</html>

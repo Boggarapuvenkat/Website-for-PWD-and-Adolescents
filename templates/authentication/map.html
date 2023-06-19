@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Embedded Google Maps</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e8f4f8;
+    }
+
+    h2 {
+      margin-top: 50px;
+      margin-bottom: 50px;
+      color: #0066cc;
+      font-size: 24px;
+      /* add font-size property */
+    }
+
+    h2 span {
+      /* add span tags around hospital names */
+      color: #333;
+      font-weight: bold;
+    }
+
+    iframe {
+      display: block;
+      margin: 0 auto;
+      border: 0;
+      width: 80%;
+      max-width: 600px;
+      height: 450px;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="container">
+    <h2><span>Hospital 1</span></h2>
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62229.41288893958!2d80.1664847357541!3d12.885954579752315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525c19218485f3%3A0x9d38f57c86733aac!2sArun%20Hospital!5e0!3m2!1sen!2sin!4v1682333279068!5m2!1sen!2sin"
+      allowfullscreen="" loading="lazy"></iframe>
+
+    <h2><span>Hospital 2</span></h2>
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7779.028286754726!2d80.21441708920273!3d12.874626849182157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525b407153dec5%3A0x386cd65de2d372a6!2sGood%20Life%20Hospital!5e0!3m2!1sen!2sin!4v1682333545383!5m2!1sen!2sin"
+      allowfullscreen="" loading="lazy"></iframe>
+
+    <h2><span>Hospital 3</span></h2>
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7779.028286754726!2d80.21441708920273!3d12.874626849182157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525ba25d4073cb%3A0x4faa4efaea6ca9ef!2sSathyabama%20General%20Hospital!5e0"
+      allowfullscreen="" loading="lazy"></iframe>
+  </div>
+</body>
+
+</html>

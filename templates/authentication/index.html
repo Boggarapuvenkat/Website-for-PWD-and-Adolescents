@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatiable" content="IE=edge">
+  <title>Authentication</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #75c6ff, #4c4c4c);
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      margin: 20px 0;
+    }
+
+
+    .alert {
+      background-color: #fff3cd;
+      border: 1px solid #ffeeba;
+      border-radius: 4px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .alert button.close {
+      background-color: transparent;
+      border: none;
+      font-size: 20px;
+      font-weight: bold;
+      color: #000;
+      opacity: 0.5;
+      transition: opacity 0.3s ease;
+    }
+
+    .alert button.close:hover {
+      opacity: 1;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+      flex-direction: row;
+    }
+
+    button {
+      --primary-color: #fff;
+      --secondary-color: #0e1112;
+      --hover-color: #4c4c4c;
+      --arrow-width: 10px;
+      --arrow-stroke: 2px;
+      box-sizing: border-box;
+      border: 0;
+      border-radius: 30px;
+      color: var(--secondary-color);
+      padding: 1em 1.8em;
+      background: var(--primary-color);
+      display: flex;
+      transition: 0.2s background;
+      align-items: center;
+      gap: 0.6em;
+      font-weight: bold;
+    }
+
+    button .arrow-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    button .arrow {
+      margin-top: 1px;
+      width: var(--arrow-width);
+      background: var(--primary-color);
+      height: var(--arrow-stroke);
+      position: relative;
+      transition: 0.2s;
+    }
+
+    button .arrow::before {
+      content: "";
+      box-sizing: border-box;
+      position: absolute;
+      border: solid var(--secondary-color);
+      border-width: 0 var(--arrow-stroke) var(--arrow-stroke) 0;
+      display: inline-block;
+      top: -3px;
+      right: 3px;
+      transition: 0.2s;
+      padding: 3px;
+      transform: rotate(-45deg);
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    button:hover .arrow {
+      background: var(--secondary-color);
+    }
+
+    button:hover .arrow:before {
+      right: 0;
+    }
+
+    h3,
+    h4 {
+
+      color: white;
+      font-size: 48px;
+      font-weight: bold;
+      text-align: center;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+      transition: color 0.3
+
+    }
+
+    a:hover {
+      color: #0056b3;
+    }
+
+
+
+    
+  </style>
+</head>
+
+<body>
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+    <strong>Message:</strong> {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %}
+
+  <h3>Welcome to Our ID Project TEAM_55</h3>
+
+  {% if user.is_authenticated %}
+  <h3>Hello {{ fname }}</h3>
+  <h4>You're successfully logged in.</h4>
+  <div class="button-container">
+    <a href="/map">
+      <button>
+        Open Map
+        <div class="arrow-wrapper">
+          <div class="arrow"></div>
+          
+        </div>
+      </button>
+  
+    <a href="/signout">
+      <button>
+        Sign Out
+        <div class="arrow-wrapper">
+          <div class="arrow"></div>
+  
+        </div>
+      </button>
+
+      <a href="/tts">
+        <button>
+          Text to speech
+          <div class="arrow-wrapper">
+            <div class="arrow"></div>
+    
+          </div>
+        </button>
+    
+    <a href="/stt">
+      <button>
+        Speech to Text
+        <div class="arrow-wrapper">
+          <div class="arrow"></div>
+    
+        </div>
+      </button>
+  </div>
+
+  {% else %}
+  <div class="button-container">
+    <a href="/signin">
+    <button>
+      Login in
+      <div class="arrow-wrapper">
+        <div class="arrow"></div>
+
+      </div>
+    </button>
+    </a>
+    <a href="/signin">
+    <button>
+      Sign up
+      <div class="arrow-wrapper">
+        <div class="arrow"></div>
+
+      </div>
+    </button>
+    <a>
+  </div>
+  {% endif %}
+
+  <script src="" async defer></script>
+</body>
+
+</html>

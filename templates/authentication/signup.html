@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="iE=edge">
+  <title>Signup Form</title>
+  <meta name="description" content="A simple signup form">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #8ba6cc;
+      background-size: cover;
+      background-position: center center;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      margin-top: 50px;
+      background-color: rgb(255, 255, 255);
+      border-radius: 5px;
+      box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+      padding: 30px;
+    }
+
+    h1 {
+      font-size: 3em;
+      text-align: center;
+      color: #333;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input {
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      padding: 10px;
+      width: 100%;
+    }
+
+    button[type="submit"] {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    .alert {
+      margin-top: 20px;
+    }
+  </style>
+  <!DOCTYPE html>
+  <html>
+
+  <head>
+    <title>Sign Up</title>
+    <!-- Your existing head tags here -->
+  </head>
+
+<body>
+  <div class="container">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+      <strong>Message: </strong> {{ message }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %}
+    <h1>ID PROJECT-TEAM_55</h1>
+    <h2>Signup</h2>
+    <form action="/signup" method="post">
+      {% csrf_token %}
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" placeholder="Create a Username (only letters and numbers)"
+        required>
+
+      <label for="fname">First Name </label>
+      <input type="text" id="fname" name="fname" placeholder="Enter Your First Name" required>
+
+      <label for="lname">Last Name</label>
+      <input type="text" id="lname" name="lname" placeholder="Enter Your Last Name" required>
+
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" placeholder="Enter Your Email Address" required>
+
+      <label for="pass1">Password</label>
+      <input type="password" id="pass1" name="pass1" placeholder="Create a Password" required>
+
+      <label for="pass2">Confirm your Password</label>
+      <input type="password" id="pass2" name="pass2" placeholder="Confirm Your Password" required>
+
+      <button type="submit">Sign Up</button>
+    </form>
+
+    <h2>Or, sign up with Google</h2>
+    <div id="g-signin2"></div>
+  </div>
+
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script>
+    // Initialize Google Sign-In
+    gapi.load('auth2', function () {
+      gapi.auth2.init({
+        client_id: 'YOUR_CLIENT_ID_HERE'
+      }).then(function () {
+        // Render Google Sign-In button
+        gapi.signin2.render('g-signin2', {
+          scope: 'profile email',
+          longtitle: true,
+          onsuccess: onSignIn,
+          onfailure: onFailure
+        });
+      });
+    });
+
+    function onSignIn(googleUser) {
+      // Get the user's ID token and basic profile information
+      var id_token = googleUser.getAuthResponse().id_token;
+      var profile = googleUser.getBasicProfile();
+
+      // Send the user's information to your server using AJAX
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', '/signup-with-google');
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          // Successful signup with Google
+          console.log('Signed up with Google successfully');
+        } else {
+          // Error during signup with Google
+          console.error('Error signing up with Google');
+        }
+      };
+      xhr.send('id_token=' + encodeURIComponent(id_token) +
+        '&email=' + encodeURIComponent(profile.getEmail()) +
+        '&first_name=' + encodeURIComponent(profile.getGivenName()) +
+        '&last_name=' + encodeURIComponent(profile.getFamilyName()));
+    }
+
+    function onFailure(error) {
+      console.error('Error signing in with Google', error);
+    }
+  </script>
+  <script src="" async defer></script>
+</body>
+
+</html>
